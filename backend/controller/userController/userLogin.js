@@ -38,10 +38,13 @@ let userLogin = async (req, res) => {
       );
     }
 
-    return res
-      .status(200)
-      .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
-      .send({ message: "login successfull", accessToken });
+    return (
+      res
+        .status(200)
+        // .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
+        .cookie("accessToken", accessToken, { secure: true })
+        .send({ message: "login successfull", accessToken })
+    );
   } catch (error) {
     return errorHandler(res, 401, error.message);
   }

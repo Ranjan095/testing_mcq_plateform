@@ -12,7 +12,7 @@ app.use(express.json());
 /** This setup allows only http://localhost:3000 origins to send and receive cookies. */
 app.use(
   cors({
-    origin: "http://localhost:3000", // Your frontend URL
+    origin: "http://localhost:5173", // Your frontend URL
     credentials: true, // Allows cookies to be sent
   })
 );

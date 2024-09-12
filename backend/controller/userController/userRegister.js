@@ -2,10 +2,10 @@ const bcrypt = require("bcrypt");
 const Users = require("../../model/userModel");
 const userRegister = async (req, res) => {
   try {
-    let { fullName, email, password, gender, profession, isAdmin } = req.body;
+    let { fullName, email, password, profession, mobile } = req.body;
 
     /** Validation for all fields */
-    if (!fullName || !email || !password || !gender || !profession) {
+    if (!fullName || !email || !password || !mobile || !profession) {
       return res.status(404).send({ error: "Please enter required fields" });
     }
 
@@ -29,9 +29,8 @@ const userRegister = async (req, res) => {
       fullName,
       email,
       password: hashPassword,
-      gender,
       profession,
-      isAdmin,
+      mobile,
     });
     await newUser.save();
 
