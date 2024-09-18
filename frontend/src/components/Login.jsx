@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { baseURL } from "../utils/baseURL";
 
 let obj = {
@@ -12,6 +12,9 @@ let obj = {
 const Login = () => {
   let [input, setInput] = useState(obj);
   let navigate = useNavigate();
+  let location = useLocation();
+
+  const from = location.state?.from?.pathname || "/signUp";
 
   let handleChange = (e) => {
     let { name, value } = e.target;
@@ -24,7 +27,7 @@ const Login = () => {
       .then((res) => {
         console.log(res);
         alert("login success");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err);

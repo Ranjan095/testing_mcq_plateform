@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const PrivateRoute = ({ children }) => {
-  const navigate = useNavigate();
+  let location = useLocation();
+
   const accessToken = Cookies.get("accessToken");
 
-  useEffect(() => {
-    if (!accessToken) {
-      alert("Please Login!");
-      navigate("/login");
-    }
-  }, [accessToken, navigate]);
+  if (!accessToken) {
+    alert("Please Login!");
+  }
 
-  return accessToken ? children : null;
+  return !accessToken ? (
+    <Navigate to={"/login"} state={{ from: location }} replace />
+  ) : (
+    children
+  );
 };
 
 export default PrivateRoute;
