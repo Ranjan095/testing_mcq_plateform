@@ -4,7 +4,9 @@ const Users = require("../../model/userModel");
 const createTest = async (req, res, next) => {
   try {
     if (!req?.user?.isAdmin) {
-      return res.status(403).send({ message: "Access denied" });
+      return res
+        .status(403)
+        .send({ message: "Access denied, Please contact with Admin!" });
     }
 
     const { testName, questions, assignedUserIds } = req.body; // Accept list of user IDs

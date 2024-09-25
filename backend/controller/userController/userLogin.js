@@ -13,6 +13,7 @@ let userLogin = async (req, res) => {
     }
     /** finding user with email */
     let user = await Users.findOne({ email });
+
     if (!user) {
       return errorHandler(res, 404, "Oops enter your correct email");
     }
@@ -43,6 +44,7 @@ let userLogin = async (req, res) => {
         .status(200)
         // .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
         .cookie("accessToken", accessToken, { secure: true })
+        .cookie("isAdmin", user?.isAdmin, { secure: true })
         .send({ message: "login successfull", accessToken })
     );
   } catch (error) {
