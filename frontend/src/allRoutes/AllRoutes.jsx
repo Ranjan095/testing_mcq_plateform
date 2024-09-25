@@ -6,6 +6,7 @@ import SignUp from "../components/SignUp";
 import PrivateRoute from "../components/privateRoute/PrivateRoute";
 import UpdateUser from "../components/UpdateUser";
 import AdminDashboard from "../components/admin/adminDashboard";
+import UserDashboard from "../components/user/userDashboard";
 
 const AllRoutes = () => {
   return (
@@ -19,6 +20,14 @@ const AllRoutes = () => {
           element={
             <PrivateRoute>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user-dashboard"
+          element={
+            <PrivateRoute>
+              <UserDashboard />
             </PrivateRoute>
           }
         />
