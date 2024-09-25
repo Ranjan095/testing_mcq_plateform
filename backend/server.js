@@ -5,6 +5,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
+const { testRoute } = require("./routs/testRoute");
 
 const app = express();
 app.use(express.json());
@@ -52,6 +53,7 @@ app.get("/api/v1", async (req, res) => {
 
 /** Routes */
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/admin", testRoute);
 
 /** listning port and connectiong DB */
 app.listen(process.env.PORT, async () => {
