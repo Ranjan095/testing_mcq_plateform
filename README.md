@@ -1,1 +1,1 @@
-# Clippet_technologies
+# MCQ-platform
