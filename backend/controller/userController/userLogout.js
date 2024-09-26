@@ -10,6 +10,7 @@ const userLogout = async (req, res) => {
       .status(200)
       .clearCookie("accessToken", options)
       .clearCookie("isAdmin", options)
+      .clearCookie("fullName", options)
       .send({ message: "User logged out successfully!" });
   } catch (error) {
     return errorHandler(res, 404, error.message);

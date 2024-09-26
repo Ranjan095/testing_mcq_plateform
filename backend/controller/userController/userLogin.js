@@ -45,7 +45,12 @@ let userLogin = async (req, res) => {
         // .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
         .cookie("accessToken", accessToken, { secure: true })
         .cookie("isAdmin", user?.isAdmin, { secure: true })
-        .send({ message: "login successfull", accessToken })
+        .cookie("fullName", user?.fullName, { secure: true })
+        .send({
+          message: "login successfull",
+          accessToken,
+          fullName: user?.fullName,
+        })
     );
   } catch (error) {
     return errorHandler(res, 401, error.message);

@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import devRanjan from "../assets/devRanjan.png";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/auth/authAction";
 
 const Navbar = () => {
   const accessToken = Cookies.get("accessToken");
   const isAdmin = Cookies.get("isAdmin");
+  const dispatch = useDispatch();
   // console.log(typeof isAdmin);
+
+  const { fullName } = useSelector((store) => store?.authReducer);
 
   const navItem = [
     { id: 1, name: "Home", path: "/" },
@@ -18,6 +23,10 @@ const Navbar = () => {
     },
     { id: 4, name: "Result", path: "/result" },
   ];
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <>
@@ -33,9 +42,15 @@ const Navbar = () => {
             </span>
           </Link>
           {accessToken ? (
-            <button className="text-lg px-2 py-1 text-white border hover:border-error hover:text-error rounded-md">
-              Log out
-            </button>
+            <div className="space-x-1">
+              <span className="font-serif text-tab">{fullName}</span>{" "}
+              <button
+                onClick={handleLogout}
+                className="text-lg px-2 py-1 text-white border hover:border-error hover:text-error rounded-md"
+              >
+                Log out
+              </button>
+            </div>
           ) : (
             <div className="flex items-center space-x-6 rtl:space-x-reverse">
               <NavLink
@@ -58,8 +73,8 @@ const Navbar = () => {
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
           <div className="flex items-center">
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-              {navItem?.map((ele) => (
-                <li key={ele?.id}>
+              {navItem?.map((ele, i) => (
+                <li key={i}>
                   <NavLink
                     to={ele?.path}
                     className={({ isActive }) =>
