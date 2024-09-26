@@ -7,6 +7,12 @@ const getAllUsers = require("../controller/userController/getAllUsers");
 const deleteUserById = require("../controller/userController/deleteUser");
 const updateUserById = require("../controller/userController/updateUser");
 const getUserById = require("../controller/userController/getUserById");
+const {
+  getTestByUserId,
+} = require("../controller/userController/getTestByUserId");
+const {
+  getTestByTestId,
+} = require("../controller/userController/getTestByTestId");
 
 const userRoute = express.Router();
 
@@ -21,5 +27,7 @@ userRoute.get("/getAllUsers", authMiddleware, getAllUsers);
 userRoute.delete("/delete-user", authMiddleware, deleteUserById);
 userRoute.patch("/update-user", authMiddleware, updateUserById);
 userRoute.get("/get-user", authMiddleware, getUserById);
+userRoute.get("/test", authMiddleware, getTestByUserId);
+userRoute.get("/test/:testId", authMiddleware, getTestByTestId);
 
 module.exports = userRoute;

@@ -21,7 +21,7 @@ export const loginUser = (input, navigate, location) => async (dispatch) => {
   return axios
     .post(`${baseURL}/user/login`, input, { withCredentials: true })
     .then((res) => {
-    //   console.log(res);
+      //   console.log(res);
       dispatch({ type: LOGIN_USER_SUCCESS, payload: res?.data });
       toastUpdate(toastId, "success", "Login successful!");
       navigate(location.state?.from?.pathname || "/", { replace: true });
@@ -35,15 +35,16 @@ export const loginUser = (input, navigate, location) => async (dispatch) => {
 };
 
 /** FOR LOGOUT USER */
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = (navigate) => async (dispatch) => {
   dispatch({ type: LOGOUT_USER_REQUEST });
   const toastId = toastLoading("Loading...");
   return axios
     .post(`${baseURL}/user/logout`, {}, { withCredentials: true })
     .then((res) => {
-    //   console.log(res);
+      //   console.log(res);
       dispatch({ type: LOGOUT_USER_SUCCESS });
       toastUpdate(toastId, "success", "Logout successfull!");
+      navigate("/");
     })
     .catch((err) => {
       const errorMessage = err?.response?.data?.error;

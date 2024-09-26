@@ -7,6 +7,7 @@ import PrivateRoute from "../components/privateRoute/PrivateRoute";
 import UpdateUser from "../components/UpdateUser";
 import AdminDashboard from "../components/admin/adminDashboard";
 import UserDashboard from "../components/user/userDashboard";
+import UserTestPage from "../components/user/UserTestPage";
 
 const AllRoutes = () => {
   return (
@@ -28,6 +29,14 @@ const AllRoutes = () => {
           element={
             <PrivateRoute>
               <UserDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user-dashboard/:testId"
+          element={
+            <PrivateRoute>
+              <UserTestPage />
             </PrivateRoute>
           }
         />

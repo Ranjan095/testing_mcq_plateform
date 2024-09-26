@@ -29,7 +29,7 @@ export let toastSuccess = (message) => {
 
 // functions for toast error
 export let toastError = (message) => {
-  return toast.error(message);
+  return toast?.error(message);
 };
 
 // function for promise

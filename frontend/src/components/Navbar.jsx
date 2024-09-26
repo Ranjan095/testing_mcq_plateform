@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import devRanjan from "../assets/devRanjan.png";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ const Navbar = () => {
   const accessToken = Cookies.get("accessToken");
   const isAdmin = Cookies.get("isAdmin");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log(typeof isAdmin);
 
   const { fullName } = useSelector((store) => store?.authReducer);
@@ -25,7 +26,7 @@ const Navbar = () => {
   ];
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser(navigate));
   };
 
   return (

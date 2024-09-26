@@ -9,6 +9,7 @@ const PrivateRoute = ({ children }) => {
 
   if (!accessToken) {
     toastError("Oops Please login!!");
+    // alert("Please login")
   }
 
   return !accessToken ? (
