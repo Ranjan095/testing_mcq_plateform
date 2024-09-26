@@ -3,6 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { baseURL } from "../utils/baseURL";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/auth/authAction";
 
 let obj = {
   email: "",
@@ -13,6 +15,7 @@ const Login = () => {
   let [input, setInput] = useState(obj);
   let navigate = useNavigate();
   let location = useLocation();
+  const dispatch = useDispatch();
 
   const from = location.state?.from?.pathname || "/signUp";
 
@@ -22,17 +25,9 @@ const Login = () => {
   };
   let handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${baseURL}/user/login`, input, { withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        alert("login success");
-        navigate(from, { replace: true });
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err?.response?.data?.error);
-      });
+    dispatch(loginUser(input, navigate, location)).then((res) => {
+      // navigate(from, { replace: true });
+    });
   };
   return (
     <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">

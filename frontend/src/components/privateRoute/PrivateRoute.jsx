@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
+import { toastError } from "../../react-toastify/ReactToastify";
 
 const PrivateRoute = ({ children }) => {
   let location = useLocation();
@@ -7,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   const accessToken = Cookies.get("accessToken");
 
   if (!accessToken) {
-    alert("Please Login!");
+    toastError("Oops Please login!!");
   }
 
   return !accessToken ? (
