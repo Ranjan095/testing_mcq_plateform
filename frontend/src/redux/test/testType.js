@@ -1,0 +1,19 @@
+/** for CRETE-test */
+export const TEST_CREATE_REQUEST = "TEST_CREATE_REQUEST";
+export const TEST_CREATE_SUCCESS = "TEST_CREATE_SUCCESS";
+export const TEST_CREATE_ERROR = "TEST_CREATE_ERROR";
+
+/** for get-test */
+export const TEST_GET_REQUEST = "TEST_GET_REQUEST";
+export const TEST_GET_SUCCESS = "TEST_GET_SUCCESS";
+export const TEST_GET_ERROR = "TEST_GET_ERROR";
+
+/** for update-test */
+export const TEST_UPDATE_REQUEST = "TEST_UPDATE_REQUEST";
+export const TEST_UPDATE_SUCCESS = "TEST_UPDATE_SUCCESS";
+export const TEST_UPDATE_ERROR = "TEST_UPDATE_ERROR";
+
+/** for DELETE-test */
+export const TEST_DELETE_REQUEST = "TEST_DELETE_REQUEST";
+export const TEST_DELETE_SUCCESS = "TEST_DELETE_SUCCESS";
+export const TEST_DELETE_ERROR = "TEST_DELETE_ERROR";

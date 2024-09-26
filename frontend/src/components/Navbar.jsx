@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import devRanjan from "../assets/devRanjan.png";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
   const accessToken = Cookies.get("accessToken");
   const isAdmin = Cookies.get("isAdmin");
-  console.log(typeof isAdmin);
+  // console.log(typeof isAdmin);
+
+  const navItem = [
+    { id: 1, name: "Home", path: "/" },
+    { id: 2, name: "User Dashboard", path: "/user-dashboard" },
+    isAdmin === "true" && {
+      id: 3,
+      name: "Admin dashboard",
+      path: "/admin/dashboard",
+    },
+    { id: 4, name: "Result", path: "/result" },
+  ];
+
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -22,7 +33,7 @@ const Navbar = () => {
             </span>
           </Link>
           {accessToken ? (
-            <button className="text-lg px-2 py-1 text-white border hover:border-red-600 rounded-md">
+            <button className="text-lg px-2 py-1 text-white border hover:border-error hover:text-error rounded-md">
               Log out
             </button>
           ) : (
@@ -47,52 +58,20 @@ const Navbar = () => {
         <div className="max-w-screen-xl px-4 py-3 mx-auto">
           <div className="flex items-center">
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-              <li>
-                <Link
-                  to="/"
-                  className={`text-white text-md hover:underline ${
-                    pathname == "/" && "text-active font-semibold underline"
-                  }`}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/user-dashboard"
-                  className={`text-white text-md hover:underline ${
-                    pathname == "/user-dashboard" &&
-                    "text-active font-semibold underline"
-                  }`}
-                >
-                  User Dashboard
-                </Link>
-              </li>
-              {isAdmin === "true" && (
-                <li>
-                  <Link
-                    to="/admin/dashboard"
-                    className={`text-white text-md hover:underline ${
-                      pathname == "/admin-dashboard" &&
-                      "text-active font-semibold underline"
-                    }`}
+              {navItem?.map((ele) => (
+                <li key={ele?.id}>
+                  <NavLink
+                    to={ele?.path}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-tab "
+                        : `text-white text-md hover:underline `
+                    }
                   >
-                    Admin dashboard
-                  </Link>
+                    {ele?.name}
+                  </NavLink>
                 </li>
-              )}
-
-              <li>
-                <Link
-                  to="/result-page"
-                  className={`text-white text-md hover:underline ${
-                    pathname == "/result-page" &&
-                    "text-active font-semibold underline"
-                  }`}
-                >
-                  Result Page
-                </Link>
-              </li>
+              ))}
             </ul>
           </div>
         </div>
