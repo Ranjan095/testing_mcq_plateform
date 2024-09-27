@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  GET_ALL_SOLVED_TEST_ERROR,
+  GET_ALL_SOLVED_TEST_REQUEST,
+  GET_ALL_SOLVED_TEST_SUCCESS,
   USER_TEST_GET_BY_TEST_ID_ERROR,
   USER_TEST_GET_BY_TEST_ID_REQUEST,
   USER_TEST_GET_BY_TEST_ID_SUCCESS,
@@ -54,5 +57,20 @@ export const getTestById = (testId) => async (dispatch) => {
       const errorMessage = err?.response?.data?.error;
       dispatch({ type: USER_TEST_GET_BY_TEST_ID_ERROR });
       toastError(errorMessage);
+    });
+};
+
+/** GET ALL SOLVED TEST BY USER */
+export const getAllSolveTest = () => async (dispatch) => {
+  dispatch({ type: GET_ALL_SOLVED_TEST_REQUEST });
+  return axios
+    .get(`${baseURL}/user/solved-test`, { withCredentials: true })
+    .then((res) => {
+      dispatch({ type: GET_ALL_SOLVED_TEST_SUCCESS, payload: res?.data });
+      // console.log(res.data);
+    })
+    .catch((err) => {
+      dispatch({ type: GET_ALL_SOLVED_TEST_ERROR });
+      console.log(err);
     });
 };

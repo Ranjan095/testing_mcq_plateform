@@ -22,7 +22,7 @@ const Navbar = () => {
       name: "Admin dashboard",
       path: "/admin/dashboard",
     },
-    { id: 4, name: "Result", path: "/result" },
+    { id: 4, name: "Test Result", path: "/test-result" },
   ];
 
   const handleLogout = () => {

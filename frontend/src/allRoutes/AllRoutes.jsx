@@ -8,6 +8,7 @@ import UpdateUser from "../components/UpdateUser";
 import AdminDashboard from "../components/admin/adminDashboard";
 import UserDashboard from "../components/user/userDashboard";
 import UserTestPage from "../components/user/UserTestPage";
+import TestResult from "../components/user/TestResult";
 
 const AllRoutes = () => {
   return (
@@ -29,6 +30,14 @@ const AllRoutes = () => {
           element={
             <PrivateRoute>
               <UserDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/test-result"
+          element={
+            <PrivateRoute>
+              <TestResult />
             </PrivateRoute>
           }
         />
