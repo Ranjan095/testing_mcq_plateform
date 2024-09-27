@@ -1,6 +1,11 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
-const UserTestCards = ({ options, questionText, no }) => {
+const UserTestCards = ({ options, questionText, no, _id, handleQuestion }) => {
+  const { testId } = useParams();
+  // console.log("testId - " + testId);
+  // console.log(" questionId " + _id);
+
   return (
     <div className="bg-gray-100 m-2 rounded-md p-2">
       {/* Display the question number and question text */}
@@ -12,6 +17,8 @@ const UserTestCards = ({ options, questionText, no }) => {
             <div key={i} className="flex justify-start mb-4 items-center">
               {/* Use radio input and give all options for a single question the same 'name' attribute */}
               <input
+                required
+                onChange={() => handleQuestion(_id, ele)}
                 type="radio"
                 name={`question-${no}`} // Ensure only one option can be selected per question
                 className="w-4 h-4 text-tab bg-gray-100 border-gray-300 focus:ring-tab"

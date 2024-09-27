@@ -3,6 +3,9 @@ import {
   GET_ALL_SOLVED_TEST_ERROR,
   GET_ALL_SOLVED_TEST_REQUEST,
   GET_ALL_SOLVED_TEST_SUCCESS,
+  TEST_SUBMIT_ERROR,
+  TEST_SUBMIT_REQUEST,
+  TEST_SUBMIT_SUCCESS,
   USER_TEST_GET_BY_TEST_ID_ERROR,
   USER_TEST_GET_BY_TEST_ID_REQUEST,
   USER_TEST_GET_BY_TEST_ID_SUCCESS,
@@ -71,6 +74,28 @@ export const getAllSolveTest = () => async (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: GET_ALL_SOLVED_TEST_ERROR });
+      console.log(err);
+    });
+};
+
+/** FOR SUBMIT TEST */
+
+export const submitTest = (data,navigate) => async (dispatch) => {
+  dispatch({ type: TEST_SUBMIT_REQUEST });
+  const toastId = toastLoading("Submitting test...");
+  return axios
+    .post(`${baseURL}/user/test/submit-test`, data, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      dispatch({ type: TEST_SUBMIT_SUCCESS });
+      toastUpdate(toastId, "success", "Thanks! your test has been submitted!");
+      navigate("/test-result");
+      console.log(res.data);
+    })
+    .catch((err) => {
+      dispatch({ type: TEST_SUBMIT_ERROR });
+      toastUpdate(toastId, "error", "Something went wrong!");
       console.log(err);
     });
 };
