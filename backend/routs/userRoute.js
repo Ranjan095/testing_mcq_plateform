@@ -13,6 +13,12 @@ const {
 const {
   getTestByTestId,
 } = require("../controller/userController/getTestByTestId");
+const {
+  userTestSubmit,
+} = require("../controller/userController/userTestSubmit");
+const {
+  getAllSolvedTestByUserId,
+} = require("../controller/userController/getAllSolvedTestByUserId");
 
 const userRoute = express.Router();
 
@@ -29,5 +35,7 @@ userRoute.patch("/update-user", authMiddleware, updateUserById);
 userRoute.get("/get-user", authMiddleware, getUserById);
 userRoute.get("/test", authMiddleware, getTestByUserId);
 userRoute.get("/test/:testId", authMiddleware, getTestByTestId);
+userRoute.post("/test/submit-test", authMiddleware, userTestSubmit);
+userRoute.get("/solved-test", authMiddleware, getAllSolvedTestByUserId);
 
 module.exports = userRoute;
