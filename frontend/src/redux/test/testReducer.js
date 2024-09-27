@@ -1,4 +1,5 @@
 import {
+  GET_ALL_SOLVED_TEST_ERROR,
   GET_ALL_SOLVED_TEST_REQUEST,
   GET_ALL_SOLVED_TEST_SUCCESS,
   USER_TEST_GET_BY_TEST_ID_ERROR,
@@ -60,7 +61,7 @@ export const testReducer = (state = initialState, { type, payload }) => {
         solvedTest: payload,
       };
     }
-    case GET_ALL_SOLVED_TEST_REQUEST: {
+    case GET_ALL_SOLVED_TEST_ERROR: {
       return { ...state, isLoading: false, isError: true };
     }
     default:
