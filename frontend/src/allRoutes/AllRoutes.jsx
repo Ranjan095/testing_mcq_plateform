@@ -5,8 +5,8 @@ import HomePage from "../components/HomePage";
 import SignUp from "../components/SignUp";
 import PrivateRoute from "../components/privateRoute/PrivateRoute";
 import UpdateUser from "../components/UpdateUser";
-import AdminDashboard from "../components/admin/adminDashboard";
-import UserDashboard from "../components/user/userDashboard";
+import AdminDashboard from "../components/admin/AdminDashboard";
+import UserDashboard from "../components/user/UserDashboard";
 import UserTestPage from "../components/user/UserTestPage";
 import TestResult from "../components/user/TestResult";
 
