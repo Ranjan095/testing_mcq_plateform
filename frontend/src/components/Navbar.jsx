@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const navItem = [
     { id: 1, name: "Home", path: "/" },
-    { id: 2, name: "User Dashboard", path: "/user-dashboard" },
+    { id: 2, name: "User Dashboard & MCQ", path: "/user-dashboard" },
     isAdmin === "true" && {
       id: 3,
       name: "Admin dashboard",

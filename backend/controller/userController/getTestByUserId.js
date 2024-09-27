@@ -5,9 +5,14 @@ const getTestByUserId = async (req, res) => {
   try {
     const userId = req?.user?._id;
 
-    const allTest = await Test.find({ assignedTo: { $in: userId } }).select(
+    const allTest = await Test.find().select(
       "-assignedTo -questions.correctAnswer"
     );
+
+     /** FOR ONLY ASSIGN USER */
+    // const allTest = await Test.find({ assignedTo: { $in: userId } }).select(
+    //   "-assignedTo -questions.correctAnswer"
+    // );
 
     // console.log(allTest);
 

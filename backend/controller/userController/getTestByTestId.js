@@ -10,9 +10,10 @@ const getTestByTestId = async (req, res) => {
       return errorHandler(res, 401, "Invalid test ID");
     }
 
-    if (!test.assignedTo.includes(req.user._id)) {
-      return errorHandler(res, 401, "access denied");
-    }
+    /** FOR ONLY ASSIGN USER */
+    // if (!test.assignedTo.includes(req.user._id)) {
+    //   return errorHandler(res, 401, "access denied");
+    // }
 
     return res.status(200).send(test);
   } catch (error) {
