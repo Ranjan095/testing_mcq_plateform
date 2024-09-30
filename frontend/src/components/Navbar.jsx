@@ -6,18 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/auth/authAction";
 
 const Navbar = () => {
-  const accessToken = Cookies.get("accessToken");
-  const isAdmin = Cookies.get("isAdmin");
+  // const accessToken = Cookies.get("accessToken");
+  // const isAdmin = Cookies.get("isAdmin");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // console.log(typeof isAdmin);
 
-  const { fullName } = useSelector((store) => store?.authReducer);
+  const { fullName, accessToken, isAdmin } = useSelector(
+    (store) => store?.authReducer
+  );
 
   const navItem = [
     { id: 1, name: "Home", path: "/" },
     { id: 2, name: "User Dashboard & MCQ", path: "/user-dashboard" },
-    isAdmin === "true" && {
+    isAdmin && {
       id: 3,
       name: "Admin dashboard",
       path: "/admin/dashboard",
@@ -26,7 +28,7 @@ const Navbar = () => {
   ];
 
   const handleLogout = () => {
-    dispatch(logoutUser(navigate));
+    dispatch(logoutUser(navigate, accessToken));
   };
 
   return (

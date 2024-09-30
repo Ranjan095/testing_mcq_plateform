@@ -23,7 +23,7 @@ const SignUp = () => {
   let handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${baseURL}/user/create`, input)
+      .post(`${baseURL}/user/create`, input,)
       .then((res) => {
         console.log(res);
         alert("your account has been created!");

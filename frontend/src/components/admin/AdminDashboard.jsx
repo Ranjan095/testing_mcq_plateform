@@ -2,15 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { baseURL } from "../../utils/baseURL";
 import UserCart from "../UserCart";
+import { useSelector } from "react-redux";
 
 const AdminDashboard = () => {
   let [users, setUsers] = useState([]);
   let [isLoading, setIsLoading] = useState(false);
   let [isSuccess, setIsSuccess] = useState(false);
+  const { accessToken } = useSelector((store) => store.authReducer);
 
   let handleDelete = (id) => {
     axios
-      .delete(`${baseURL}/user/delete-user?id=${id}`, { withCredentials: true })
+      .delete(`${baseURL}/user/delete-user?id=${id}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
       .then((res) => {
         // console.log(res);
         alert("User deleted successfully");
@@ -25,7 +29,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${baseURL}/user/getAllUsers`, { withCredentials: true })
+      .get(`${baseURL}/user/getAllUsers`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
       .then((res) => {
         setIsLoading(false);
         setIsSuccess(true);

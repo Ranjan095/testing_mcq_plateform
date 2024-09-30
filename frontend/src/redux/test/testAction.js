@@ -20,7 +20,7 @@ import {
   toastUpdate,
 } from "../../react-toastify/ReactToastify";
 
-export const userGetAllTest = () => async (dispatch, getState) => {
+export const userGetAllTest = (accessToken) => async (dispatch, getState) => {
   const { isSuccess } = getState().testReducer;
 
   // If the tests have already been fetched, return early to avoid re-fetching
@@ -31,9 +31,15 @@ export const userGetAllTest = () => async (dispatch, getState) => {
   dispatch({ type: USER_TEST_GET_REQUEST });
   const toastId = toastLoading("getting test...");
   return axios
-    .get(`${baseURL}/user/test`, { withCredentials: true })
+    .get(
+      `${baseURL}/user/test`,
+     
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    )
     .then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       dispatch({ type: USER_TEST_GET_SUCCESS, payload: res?.data });
       toastUpdate(toastId, "success", "fetched test successfully");
     })
@@ -47,11 +53,13 @@ export const userGetAllTest = () => async (dispatch, getState) => {
 
 /** GET TEST BY ID */
 
-export const getTestById = (testId) => async (dispatch) => {
+export const getTestById = (testId,accessToken) => async (dispatch) => {
   dispatch({ type: USER_TEST_GET_BY_TEST_ID_REQUEST });
   // const tostId = toastLoading("Loading test...");
   return axios
-    .get(`${baseURL}/user/test/${testId}`, { withCredentials: true })
+    .get(`${baseURL}/user/test/${testId}`,  {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
     .then((res) => {
       dispatch({ type: USER_TEST_GET_BY_TEST_ID_SUCCESS, payload: res?.data });
       // toastUpdate(tostId, "success", "fetched test successfully");
@@ -64,10 +72,12 @@ export const getTestById = (testId) => async (dispatch) => {
 };
 
 /** GET ALL SOLVED TEST BY USER */
-export const getAllSolveTest = () => async (dispatch) => {
+export const getAllSolveTest = (accessToken) => async (dispatch) => {
   dispatch({ type: GET_ALL_SOLVED_TEST_REQUEST });
   return axios
-    .get(`${baseURL}/user/solved-test`, { withCredentials: true })
+    .get(`${baseURL}/user/solved-test`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
     .then((res) => {
       dispatch({ type: GET_ALL_SOLVED_TEST_SUCCESS, payload: res?.data });
       // console.log(res.data);
@@ -80,18 +90,18 @@ export const getAllSolveTest = () => async (dispatch) => {
 
 /** FOR SUBMIT TEST */
 
-export const submitTest = (data,navigate) => async (dispatch) => {
+export const submitTest = (data, navigate,accessToken) => async (dispatch) => {
   dispatch({ type: TEST_SUBMIT_REQUEST });
   const toastId = toastLoading("Submitting test...");
   return axios
     .post(`${baseURL}/user/test/submit-test`, data, {
-      withCredentials: true,
+      headers: { Authorization: `Bearer ${accessToken}` },
     })
     .then((res) => {
       dispatch({ type: TEST_SUBMIT_SUCCESS });
       toastUpdate(toastId, "success", "Thanks! your test has been submitted!");
       navigate("/test-result");
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       dispatch({ type: TEST_SUBMIT_ERROR });

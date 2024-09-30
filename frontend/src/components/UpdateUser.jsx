@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseURL } from "../utils/baseURL";
 import { ArrowRight } from "lucide-react";
+import { useSelector } from "react-redux";
 
 let obj = {
   fullName: "",
@@ -16,10 +17,15 @@ const UpdateUser = () => {
   let [input, setInput] = useState(obj);
   let { id } = useParams();
   let navigate = useNavigate();
+
+  const { accessToken } = useSelector((store) => store.authReducer);
+
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${baseURL}/user/get-user?id=${id}`, { withCredentials: true })
+      .get(`${baseURL}/user/get-user?id=${id}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
       .then((res) => {
         // console.log(res?.data);
         setIsLoading(false);
@@ -41,7 +47,7 @@ const UpdateUser = () => {
     e.preventDefault();
     axios
       .patch(`${baseURL}/user/update-user?id=${id}`, input, {
-        withCredentials: true,
+        headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
         // console.log(res);
@@ -118,7 +124,7 @@ const UpdateUser = () => {
               </div>
               <div className="mt-2">
                 <input
-                required
+                  required
                   onChange={handleChange}
                   value={input.email}
                   name="email"

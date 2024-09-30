@@ -19,10 +19,13 @@ export const loginUser = (input, navigate, location) => async (dispatch) => {
   dispatch({ type: LOGIN_USER_REQUEST });
   const toastId = toastLoading("login....");
   return axios
-    .post(`${baseURL}/user/login`, input, { withCredentials: true })
+    .post(`${baseURL}/user/login`, input)
     .then((res) => {
       //   console.log(res);
       dispatch({ type: LOGIN_USER_SUCCESS, payload: res?.data });
+      localStorage.setItem("accessToken", res?.data?.accessToken);
+      localStorage.setItem("isAdmin", res?.data?.isAdmin);
+      localStorage.setItem("fullName", res?.data?.fullName);
       toastUpdate(toastId, "success", "Login successful!");
       navigate(location.state?.from?.pathname || "/", { replace: true });
     })
@@ -35,16 +38,25 @@ export const loginUser = (input, navigate, location) => async (dispatch) => {
 };
 
 /** FOR LOGOUT USER */
-export const logoutUser = (navigate) => async (dispatch) => {
+export const logoutUser = (navigate, accessToken) => async (dispatch) => {
   dispatch({ type: LOGOUT_USER_REQUEST });
   const toastId = toastLoading("Loading...");
   return axios
-    .post(`${baseURL}/user/logout`, {}, { withCredentials: true })
+    .post(
+      `${baseURL}/user/logout`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    )
     .then((res) => {
       //   console.log(res);
+      navigate("/");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("isAdmin");
+      localStorage.removeItem("fullName");
       dispatch({ type: LOGOUT_USER_SUCCESS });
       toastUpdate(toastId, "success", "Logout successfull!");
-      navigate("/");
     })
     .catch((err) => {
       const errorMessage = err?.response?.data?.error;

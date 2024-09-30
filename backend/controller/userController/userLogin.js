@@ -39,19 +39,14 @@ let userLogin = async (req, res) => {
       );
     }
 
-    return (
-      res
-        .status(200)
-        // .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
-        .cookie("accessToken", accessToken, { secure: true })
-        .cookie("isAdmin", user?.isAdmin, { secure: true })
-        .cookie("fullName", user?.fullName, { secure: true })
-        .send({
-          message: "login successfull",
-          accessToken,
-          fullName: user?.fullName,
-        })
-    );
+    return res
+      .status(200)
+      .send({
+        message: "login successfull",
+        accessToken,
+        fullName: user?.fullName,
+        isAdmin:user?.isAdmin,
+      });
   } catch (error) {
     return errorHandler(res, 401, error.message);
   }

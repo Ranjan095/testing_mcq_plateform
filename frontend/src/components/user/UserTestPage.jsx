@@ -14,11 +14,12 @@ const UserTestPage = () => {
   });
 
   const { singleTest, isLoading } = useSelector((store) => store.testReducer);
+  const { accessToken } = useSelector((store) => store?.authReducer);
   // console.log(singleTest)
 
   const handleSubmitTest = (e) => {
     e.preventDefault();
-    dispatch(submitTest(state,navigate));
+    dispatch(submitTest(state,navigate,accessToken));
   };
 
   const filterDuplicate = (obj, answers) => {
@@ -47,7 +48,7 @@ const UserTestPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getTestById(testId));
+    dispatch(getTestById(testId,accessToken));
   }, []);
 
   return isLoading ? (

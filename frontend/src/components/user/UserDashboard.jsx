@@ -8,11 +8,12 @@ import { userGetAllTest } from "../../redux/test/testAction";
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const { userTest, isSuccess } = useSelector((store) => store?.testReducer);
+  const { accessToken } = useSelector((store) => store?.authReducer);
 
   useEffect(() => {
     // Only fetch the tests if they haven't been fetched already
     if (!isSuccess) {
-      dispatch(userGetAllTest());
+      dispatch(userGetAllTest(accessToken));
     }
   }, [dispatch, isSuccess]);
 

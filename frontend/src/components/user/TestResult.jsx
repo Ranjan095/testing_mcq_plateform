@@ -7,10 +7,11 @@ const TestResult = () => {
   const dispatch = useDispatch();
 
   const { solvedTest, isLoading } = useSelector((store) => store.testReducer);
-  console.log(solvedTest);
+  const { accessToken } = useSelector((store) => store.authReducer);
+
 
   useEffect(() => {
-    dispatch(getAllSolveTest());
+    dispatch(getAllSolveTest(accessToken));
   }, []);
   return isLoading ? (
     <h1>Loading Test Result...</h1>
