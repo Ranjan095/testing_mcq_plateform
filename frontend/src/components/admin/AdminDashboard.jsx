@@ -1,61 +1,64 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { baseURL } from "../../utils/baseURL";
-import UserCart from "../UserCart";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import CreateTest from "./CreateTest";
+import AllTest from "./AllTest";
+import AllUser from "./AllUser";
 
 const AdminDashboard = () => {
-  let [users, setUsers] = useState([]);
-  let [isLoading, setIsLoading] = useState(false);
-  let [isSuccess, setIsSuccess] = useState(false);
-  const { accessToken } = useSelector((store) => store.authReducer);
-
-  let handleDelete = (id) => {
-    axios
-      .delete(`${baseURL}/user/delete-user?id=${id}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        // console.log(res);
-        alert("User deleted successfully");
-        setUsers(users.filter((user) => user._id !== id));
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err?.response?.data?.error);
-      });
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "Add_Test"; // Get the tab from URL or default to "Add Test"
+  const [selectedTab, setSelectedTab] = useState(defaultTab);
 
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${baseURL}/user/getAllUsers`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        setIsLoading(false);
-        setIsSuccess(true);
-        // console.log(res?.data);
-        setUsers(res?.data);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        alert(err?.response?.data?.error);
-        console.log(err);
-      });
-  }, []);
+    // Update searchParams in the URL when selectedTab changes
+    setSearchParams({ tab: selectedTab });
+  }, [selectedTab, setSearchParams]);
 
-  return isLoading ? (
-    <h1 className="text-3xl font-bold">Loading...</h1>
-  ) : (
-    <>
-      <h1 className="text-3xl">List of Users</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {users?.map((res) => (
-          <UserCart key={res._id} handleDelete={handleDelete} {...res} />
-        ))}
+  const renderContent = () => {
+    switch (selectedTab) {
+      case "Add_Test":
+        return <CreateTest />;
+      case "All_Test":
+        return <AllTest />;
+      case "All_Users":
+        return <AllUser />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="flex justify-around min:h-screen">
+      <div className="bg-red-300 w-[20%] h-full">
+        <ul className="text-center">
+          <li
+            className={`bg-tab my-2 p-2 rounded-md font-bold text-white cursor-pointer ${
+              selectedTab === "Add_Test" ? "bg-blue-500" : ""
+            }`}
+            onClick={() => setSelectedTab("Add_Test")}
+          >
+            Add Test
+          </li>
+          <li
+            className={`bg-tab my-2 p-2 rounded-md font-bold text-white cursor-pointer ${
+              selectedTab === "All_Test" ? "bg-blue-500" : ""
+            }`}
+            onClick={() => setSelectedTab("All_Test")}
+          >
+            All Test
+          </li>
+          <li
+            className={`bg-tab my-2 p-2 rounded-md font-bold text-white cursor-pointer ${
+              selectedTab === "All_Users" ? "bg-blue-500" : ""
+            }`}
+            onClick={() => setSelectedTab("All_Users")}
+          >
+            All Users
+          </li>
+        </ul>
       </div>
-    </>
+      <div className="bg-green-300 w-[75%] h-full p-4">{renderContent()}</div>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ const createTest = async (req, res, next) => {
         .send({ message: "Access denied, Please contact with Admin!" });
     }
 
-    const { testName, questions, assignedUserIds } = req.body; // Accept list of user IDs
+    const { testName, questions, assignedUserIds, isCommon } = req.body; // Accept list of user IDs
 
     // Verify that all provided user IDs exist in the database
     const assignedUsers = await Users.find({ _id: { $in: assignedUserIds } });
@@ -20,6 +20,7 @@ const createTest = async (req, res, next) => {
     // Create the test
     const test = new Test({
       testName,
+      isCommon,
       questions,
       createdBy: req?.user?._id,
       assignedTo: assignedUserIds, // Assign the test to the list of users
