@@ -23,7 +23,7 @@ const UserDashboard = () => {
         Test
       </h1>
       <div className="grid grid-cols-4 gap-2 lg:gap-4">
-        {userTest.map((ele) => (
+        {userTest?.map((ele) => (
           <SubjectCard {...ele} key={ele._id} />
         ))}
       </div>

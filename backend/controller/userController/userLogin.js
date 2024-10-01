@@ -27,8 +27,8 @@ let userLogin = async (req, res) => {
     /** creating accessToken using JWT */
     const accessToken = jwt.sign(
       { id: user?._id, name: user?.fullName, email: user?.email },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
+      process.env.ACCESS_TOKEN_SECRET
+      // { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
     );
 
     if (!accessToken) {
@@ -39,14 +39,12 @@ let userLogin = async (req, res) => {
       );
     }
 
-    return res
-      .status(200)
-      .send({
-        message: "login successfull",
-        accessToken,
-        fullName: user?.fullName,
-        isAdmin:user?.isAdmin,
-      });
+    return res.status(200).send({
+      message: "login successfull",
+      accessToken,
+      fullName: user?.fullName,
+      isAdmin: user?.isAdmin,
+    });
   } catch (error) {
     return errorHandler(res, 401, error.message);
   }

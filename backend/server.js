@@ -12,7 +12,6 @@ app.use(express.json());
 
 app.use(cors());
 
-
 // Define rate limiting rules
 const apiRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
