@@ -14,7 +14,10 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  userTest: [],
+  userTest: {
+    commonTest: [],
+    assignedTest: [],
+  },
   adminTest: [],
   solvedTest: [],
   singleTest: null,

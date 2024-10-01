@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 const SubjectCard = ({ testName, _id }) => {
   return (
     <Link to={`/user-dashboard/${_id}`}>
-      <div className="myShadow overflow-hidden cursor-pointer group bg-secondary">
+      <div className="w-[200px] h-[200px] bg-green-300 mx-2">
+        <h1>{testName}</h1>
+      </div>
+      {/* <div className="myShadow overflow-hidden cursor-pointer group bg-secondary">
         <div className="h-[200px] w-full relative overflow-hidden">
           <img
             src={image}
@@ -16,7 +19,7 @@ const SubjectCard = ({ testName, _id }) => {
         <div className="p-4">
           <h3 className="text-lg text-heading">{testName}</h3>
         </div>
-      </div>
+      </div> */}
     </Link>
   );
 };

@@ -10,6 +10,7 @@ const testSchema = new mongoose.Schema({
    testName: { type: String, required: true },
    questions: [questionSchema],
    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+   isCommon: { type: Boolean, default: false },
    assignedTo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]  // New field to store assigned users
 });
 
