@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createTest } from "../../redux/test/testAction";
 const questionObj = { questionText: "", options: [], correctAnswer: "" };
 
 const obj = {
@@ -12,10 +13,14 @@ const obj = {
 const CreateTest = () => {
   const [test, setTest] = useState(obj);
   const [newOption, setNewOption] = useState("");
+  const dispatch = useDispatch();
+
+  const { accessToken } = useSelector((store) => store.authReducer);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit test", test);
+    // console.log("submit test", test);
+    dispatch(createTest(test, accessToken));
   };
 
   const handleAddQuestion = () => {

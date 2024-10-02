@@ -3,6 +3,7 @@ import {
   GET_ALL_SOLVED_TEST_ERROR,
   GET_ALL_SOLVED_TEST_REQUEST,
   GET_ALL_SOLVED_TEST_SUCCESS,
+  TEST_CREATE_REQUEST,
   TEST_SUBMIT_ERROR,
   TEST_SUBMIT_REQUEST,
   TEST_SUBMIT_SUCCESS,
@@ -20,6 +21,25 @@ import {
   toastUpdate,
 } from "../../react-toastify/ReactToastify";
 
+export const createTest = (formData, accessToken) => (dispatch) => {
+  dispatch({ type: TEST_CREATE_REQUEST });
+  const tostId = toastLoading("Creating...");
+  return axios
+    .post(`${baseURL}/admin/create-test`, formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((res) => {
+      toastUpdate(tostId, "success", "Test created successfully!");
+      console.log(res);
+    })
+    .catch((err) => {
+      toastUpdate(tostId, "error", "Something went wrong while creating test!");
+      console.log(err);
+    });
+};
+
 export const userGetAllTest = (accessToken) => async (dispatch, getState) => {
   const { isSuccess } = getState().testReducer;
 
@@ -33,7 +53,7 @@ export const userGetAllTest = (accessToken) => async (dispatch, getState) => {
   return axios
     .get(
       `${baseURL}/user/test`,
-     
+
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
@@ -53,11 +73,11 @@ export const userGetAllTest = (accessToken) => async (dispatch, getState) => {
 
 /** GET TEST BY ID */
 
-export const getTestById = (testId,accessToken) => async (dispatch) => {
+export const getTestById = (testId, accessToken) => async (dispatch) => {
   dispatch({ type: USER_TEST_GET_BY_TEST_ID_REQUEST });
   // const tostId = toastLoading("Loading test...");
   return axios
-    .get(`${baseURL}/user/test/${testId}`,  {
+    .get(`${baseURL}/user/test/${testId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
     .then((res) => {
@@ -90,7 +110,7 @@ export const getAllSolveTest = (accessToken) => async (dispatch) => {
 
 /** FOR SUBMIT TEST */
 
-export const submitTest = (data, navigate,accessToken) => async (dispatch) => {
+export const submitTest = (data, navigate, accessToken) => async (dispatch) => {
   dispatch({ type: TEST_SUBMIT_REQUEST });
   const toastId = toastLoading("Submitting test...");
   return axios
