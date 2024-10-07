@@ -32,7 +32,7 @@ const UserDashboard = () => {
       <div className="p-4">
         <div className="w-full  mx-auto md:w-[90%] lg:w-[85%] grid lg:grid-cols-8 gap-4">
           {/* admin information */}
-          <div className="myShadow col-span-4 lg:col-span-2 p-4 flex flex-col gap-3 h-auto md:min-h-[400px] ">
+          <div className="myShadow col-span-4 lg:col-span-2 p-4 flex flex-col gap-3 h-auto lg:min-h-[400px] ">
             {userData?.map((testname, i) => (
               <button
                 key={i}
@@ -54,13 +54,13 @@ const UserDashboard = () => {
           <div className=" col-span-4  lg:col-span-6">
             <div className=" ">
               {testName === assignTest ? (
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 justify-center items-center md:grid-cols-3">
                   {assignedTest?.map((ele) => (
                     <SubjectCard {...ele} key={ele._id} />
                   ))}
                 </div>
               ) : (
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 justify-center items-center md:grid-cols-3">
                   {commonTest?.map((ele) => (
                     <SubjectCard {...ele} key={ele._id} />
                   ))}
