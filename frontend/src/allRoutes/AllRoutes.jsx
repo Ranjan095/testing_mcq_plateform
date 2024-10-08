@@ -9,6 +9,7 @@ import AdminDashboard from "../components/admin/AdminDashboard";
 import UserDashboard from "../components/user/UserDashboard";
 import UserTestPage from "../components/user/UserTestPage";
 import TestResult from "../components/user/TestResult";
+import TestResultSinglePage from "../components/user/TestResultSinglePage";
 
 const AllRoutes = () => {
   return (
@@ -38,6 +39,14 @@ const AllRoutes = () => {
           element={
             <PrivateRoute>
               <TestResult />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/test-result/:singleTestId"
+          element={
+            <PrivateRoute>
+              <TestResultSinglePage />
             </PrivateRoute>
           }
         />

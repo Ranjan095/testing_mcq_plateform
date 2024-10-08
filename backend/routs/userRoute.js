@@ -19,6 +19,7 @@ const {
 const {
   getAllSolvedTestByUserId,
 } = require("../controller/userController/getAllSolvedTestByUserId");
+const { getSolvedTestByTestId } = require("../controller/userController/getSolvedTestByTestId");
 
 const userRoute = express.Router();
 
@@ -37,5 +38,6 @@ userRoute.get("/test", authMiddleware, getTestByUserId);
 userRoute.get("/test/:testId", authMiddleware, getTestByTestId);
 userRoute.post("/test/submit-test", authMiddleware, userTestSubmit);
 userRoute.get("/solved-test", authMiddleware, getAllSolvedTestByUserId);
+userRoute.get("/solved-test/:solvedTestId", authMiddleware, getSolvedTestByTestId);
 
 module.exports = userRoute;

@@ -3,6 +3,9 @@ import {
   GET_ALL_SOLVED_TEST_ERROR,
   GET_ALL_SOLVED_TEST_REQUEST,
   GET_ALL_SOLVED_TEST_SUCCESS,
+  SINGLE_SOLVED_TEST_ERROR,
+  SINGLE_SOLVED_TEST_REQUEST,
+  SINGLE_SOLVED_TEST_SUCCESS,
   TEST_CREATE_REQUEST,
   TEST_SUBMIT_ERROR,
   TEST_SUBMIT_REQUEST,
@@ -107,6 +110,23 @@ export const getAllSolveTest = (accessToken) => async (dispatch) => {
       console.log(err);
     });
 };
+/** GET SINGLE SOLVED TEST BY SOLVEDTESTID */
+export const getSingleSolvetTest =
+  (accessToken, solvedTestId) => async (dispatch) => {
+    dispatch({ type: SINGLE_SOLVED_TEST_REQUEST });
+    return axios
+      .get(`${baseURL}/user/solved-test/${solvedTestId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        dispatch({ type: SINGLE_SOLVED_TEST_SUCCESS, payload: res?.data });
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        dispatch({ type: SINGLE_SOLVED_TEST_ERROR });
+        console.log(err);
+      });
+  };
 
 /** FOR SUBMIT TEST */
 

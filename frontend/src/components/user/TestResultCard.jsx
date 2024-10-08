@@ -1,66 +1,68 @@
 import React from "react";
 
 const TestResultCard = ({
-  dateSolved,
-  score,
-  solvedQuestions,
-  testId,
-  userId,
+  dateSolved = "",
+  score = 0,
+  solvedQuestions = [],
+  testId = {},
+  userId = "",
 }) => {
-  const { questions, testName } = testId;
+  const { questions = [], testName = "Unknown Test" } = testId || {};
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">{testName}</h1>
-      <h1>
-        <b>Date solved:</b> {new Date(dateSolved).toLocaleString()}
-      </h1>
-      <h1>
-        <b>Scored:</b> {`${score} / ${questions.length}`}
-      </h1>
+    <div className="flex justify-center my-2">
+      <div className=" text-center w-[90%] md:w-[50%]">
+        <h1 className="text-2xl font-bold text-tab">{testName}</h1>
+        <h1>
+          <b>Date solved:</b> {new Date(dateSolved).toLocaleString()}
+        </h1>
+        <h1>
+          <b>Scored:</b> {`${score} / ${questions.length}`}
+        </h1>
 
-      {questions?.map((quest, qi) => {
-        const solvedQuestion = solvedQuestions.find(
-          (sq) => sq.questionId === quest._id
-        );
+        {questions?.map((quest, qi) => {
+          const solvedQuestion = solvedQuestions.find(
+            (sq) => sq.questionId === quest._id
+          );
 
-        return (
-          <div key={quest._id} className="m-2 p-2 bg-gray-100 rounded-md">
-            <h1 className="font-bold">{`Q ${qi + 1} - ${
-              quest?.questionText
-            }`}</h1>
+          return (
+            <div key={quest._id} className="m-2 p-2 bg-gray-100 rounded-md">
+              <h1 className="font-bold py-2">{`Q ${qi + 1}. ${
+                quest?.questionText
+              }`}</h1>
 
-            <div>
-              {quest?.options.map((opt, i) => {
-                const isCorrect = quest?.correctAnswer === opt;
-                const isSelected = solvedQuestion?.selectedAnswer === opt;
+              <div>
+                {quest?.options.map((opt, i) => {
+                  const isCorrect = quest?.correctAnswer === opt;
+                  const isSelected = solvedQuestion?.selectedAnswer === opt;
 
-                return (
-                  <div
-                    key={i}
-                    className={`flex items-center mb-2 p-2 rounded-md ${
-                      isCorrect
-                        ? "bg-green-500 text-white" // Green for correct answer
-                        : isSelected && !isCorrect
-                        ? "bg-red-500 text-white" // Red for incorrect selected answer
-                        : "bg-gray-200" // Default for unselected options
-                    }`}
-                  >
-                    <input
-                      disabled
-                      readOnly
-                      type="radio"
-                      checked={isSelected} // Check the user's selected answer
-                      className="w-4 h-4 border-gray-300 focus:ring-tab"
-                    />
-                    <label className="ml-2 text-md font-medium">{opt}</label>
-                  </div>
-                );
-              })}
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-center mb-2 p-2 rounded-md ${
+                        isCorrect
+                          ? "bg-green-500 text-white" // Green for correct answer
+                          : isSelected && !isCorrect
+                          ? "bg-red-500 text-white" // Red for incorrect selected answer
+                          : "bg-gray-200" // Default for unselected options
+                      }`}
+                    >
+                      <input
+                        disabled
+                        readOnly
+                        type="radio"
+                        checked={isSelected} // Check the user's selected answer
+                        className="w-4 h-4 border-gray-300 focus:ring-tab"
+                      />
+                      <label className="ml-2 text-md font-medium">{opt}</label>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

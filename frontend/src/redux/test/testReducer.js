@@ -2,6 +2,9 @@ import {
   GET_ALL_SOLVED_TEST_ERROR,
   GET_ALL_SOLVED_TEST_REQUEST,
   GET_ALL_SOLVED_TEST_SUCCESS,
+  SINGLE_SOLVED_TEST_ERROR,
+  SINGLE_SOLVED_TEST_REQUEST,
+  SINGLE_SOLVED_TEST_SUCCESS,
   USER_TEST_GET_BY_TEST_ID_ERROR,
   USER_TEST_GET_BY_TEST_ID_REQUEST,
   USER_TEST_GET_BY_TEST_ID_SUCCESS,
@@ -21,6 +24,7 @@ const initialState = {
   adminTest: [],
   solvedTest: [],
   singleTest: null,
+  singleSolvedTest: {},
 };
 
 export const testReducer = (state = initialState, { type, payload }) => {
@@ -65,6 +69,22 @@ export const testReducer = (state = initialState, { type, payload }) => {
       };
     }
     case GET_ALL_SOLVED_TEST_ERROR: {
+      return { ...state, isLoading: false, isError: true };
+    }
+    /** FOR SINGLE SOLVED TEST */
+    case SINGLE_SOLVED_TEST_REQUEST: {
+      return { ...state, isLoading: true, isError: false };
+    }
+    case SINGLE_SOLVED_TEST_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        singleSolvedTest: payload,
+      };
+    }
+    case SINGLE_SOLVED_TEST_ERROR: {
       return { ...state, isLoading: false, isError: true };
     }
     default:
