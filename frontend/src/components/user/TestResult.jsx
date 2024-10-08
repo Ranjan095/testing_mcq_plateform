@@ -23,7 +23,7 @@ const TestResult = () => {
         Test Result
       </h1>
       {/** TEST RESULT */}
-      <div className="grid md:grid-cols-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {solvedTest?.map((ele) => {
           const score = ele?.score;
           const questions = ele?.testId?.questions?.length;
