@@ -16,7 +16,7 @@ const TestResult = () => {
     dispatch(getAllSolveTest(accessToken));
   }, []);
   return isLoading ? (
-    <h1>Loading Test Result...</h1>
+    <h1 className="text-3xl font-bold text-center mt-2">Loading Test Result...</h1>
   ) : (
     <div className="m-2">
       <h1 className="text-3xl text-primary font-bold text-center">
